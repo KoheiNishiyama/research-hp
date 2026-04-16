@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kohei Nishiyama — Version A</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── SWISS INTERNATIONAL TYPOGRAPHIC STYLE ── */
+    :root {
+      --font:    'Be Vietnam', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-ja: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Kaku Gothic Pro', sans-serif;
+      --black:   #323232;
+      --mid:     #555555;
+      --light:   #8a8a8a;
+      --rule:    #d8d6d3;
+      --white:   #ffffff;
+      --max:     960px;
+      --pad:     56px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      font-size: 19px;
+      line-height: 1.9;
+      color: var(--black);
+      background: var(--white);
+      font-feature-settings: "kern" 1;
+    }
+    body.lang-ja {
+      font-family: var(--font-ja);
+      font-feature-settings: "palt" 1;
+    }
+
+    /* ── LANG TOGGLE ── */
+    .lang-toggle {
+      position: fixed;
+      top: 18px;
+      right: var(--pad);
+      z-index: 1000;
+      display: flex;
+      gap: 18px;
+    }
+    .lang-toggle button {
+      background: none;
+      border: none;
+      font-family: var(--font);
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--light);
+      cursor: pointer;
+      padding: 0 0 2px;
+    }
+    .lang-toggle button.active {
+      color: var(--black);
+      border-bottom: 1px solid var(--black);
+    }
+    body.lang-ja .lang-toggle { font-family: var(--font-ja); }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: var(--white);
+      border-top: 2px solid var(--black);
+      border-bottom: 1px solid var(--rule);
+    }
+    nav ul {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      overflow-x: auto;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul li a {
+      display: block;
+      padding: 14px 0;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--light);
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    nav ul li a:hover {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 96px var(--pad) 88px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 64px;
+      align-items: start;
+    }
+    .hero-photo {
+      width: 220px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .hero-text {
+      padding-top: 4px;
+    }
+    .hero-name {
+      font-size: 3.5rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.06;
+      margin-bottom: 36px;
+    }
+    .hero-name-ja {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-top: 8px;
+    }
+    .hero-row {
+      margin-bottom: 14px;
+    }
+    .hero-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--light);
+      margin-bottom: 4px;
+    }
+    .hero-value {
+      font-size: 18px;
+      color: var(--black);
+      line-height: 1.8;
+    }
+    .hero-email {
+      margin-top: 32px;
+      font-size: 17px;
+    }
+    .hero-email a {
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      border-top: 1px solid var(--rule);
+    }
+    #profile {
+      border-top: none;
+    }
+    .section-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 80px var(--pad);
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--mid);
+      margin-bottom: 56px;
+    }
+
+    .sub-label {
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      border-top: 1px solid var(--rule);
+      padding-top: 14px;
+      margin: 64px 0 28px;
+    }
+
+    /* ── PROFILE ── */
+    .profile-body {
+      max-width: 680px;
+    }
+    .profile-body p {
+      font-size: 18px;
+      line-height: 1.85;
+      color: var(--black);
+      margin-bottom: 1.6em;
+      text-align: justify;
+    }
+    .profile-body p:last-child {
+      margin-bottom: 0;
+    }
+    /* ── BIO STRIP ── */
+    .bio-strip {
+      border-top: 1px solid var(--rule);
+      padding: 32px 0 28px;
+    }
+    .bio-list {
+      list-style: none;
+    }
+    .bio-list li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      padding: 5px 0;
+      font-size: 17px;
+      color: var(--black);
+    }
+    .bio-year {
+      color: var(--light);
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      padding-top: 2px;
+      white-space: nowrap;
+    }
+
+    /* ── RESEARCH CARDS ── */
+    .research-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 0 64px;
+    }
+    .research-card {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+      border-top: 1px solid var(--rule);
+      padding: 32px 0;
+    }
+    .research-card h3 {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      align-self: start;
+    }
+    .research-card p {
+      font-size: 18px;
+      color: var(--black);
+      line-height: 1.9;
+      align-self: start;
+      text-align: justify;
+    }
+
+    /* ── STRENGTHS ── */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 0 64px;
+    }
+    .strength-item {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+      border-top: 1px solid var(--rule);
+      padding: 24px 0;
+    }
+    .strength-icon { display: none; }
+    .strength-item h3 {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      align-self: start;
+    }
+    .strength-item p {
+      font-size: 18px;
+      color: var(--black);
+      line-height: 1.9;
+      align-self: start;
+      text-align: left;
+    }
+
+    /* ── INTERESTS ── */
+    .interests-list { list-style: none; }
+    .interests-list li {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 32px;
+      border-top: 1px solid var(--rule);
+      padding: 32px 0;
+    }
+    .interest-number {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--light);
+      padding-top: 4px;
+    }
+    .interest-text h3 {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .interest-text p {
+      font-size: 18px;
+      color: var(--black);
+      line-height: 1.9;
+      text-align: justify;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { list-style: none; }
+    .pub-list li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      border-top: 1px solid var(--rule);
+      padding: 20px 0;
+      font-size: 18px;
+    }
+    .pub-meta { padding-top: 3px; }
+    .pub-year {
+      display: block;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--light);
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      margin-bottom: 4px;
+    }
+    .peer-reviewed {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--light);
+      margin-left: 0;
+    }
+    .pub-content { color: var(--black); line-height: 1.75; text-align: justify; }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievement-list { list-style: none; }
+    .achievement-list li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      border-top: 1px solid var(--rule);
+      padding: 28px 0;
+    }
+    .ach-year {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--light);
+      padding-top: 3px;
+    }
+    .ach-body h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .ach-body p {
+      font-size: 18px;
+      color: var(--black);
+      line-height: 1.9;
+      text-align: justify;
+    }
+
+    /* ── TEACHING ── */
+    .teaching-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 18px;
+    }
+    .teaching-table th {
+      text-align: left;
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--light);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 10px 16px 10px 0;
+    }
+    .teaching-table th:first-child, .teaching-table td:first-child { padding-left: 0; }
+    .teaching-table td {
+      padding: 14px 16px 14px 0;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      color: var(--black);
+    }
+    .teaching-table tr:last-child td { border-bottom: none; }
+    .teaching-table .year-col {
+      width: 90px;
+      font-size: 13px;
+      color: var(--light);
+      letter-spacing: 0.06em;
+      font-family: inherit;
+    }
+
+    /* ── AWARDS ── */
+    .award-list { list-style: none; }
+    .award-list li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      border-top: 1px solid var(--rule);
+      padding: 16px 0;
+      font-size: 18px;
+      color: var(--black);
+    }
+    .award-year {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--light);
+      padding-top: 3px;
+      width: auto;
+      font-weight: 400;
+    }
+    .other-recog-label {
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--light);
+      margin-top: 40px;
+      margin-bottom: 12px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .tag {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--light);
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      margin-right: 24px;
+      margin-bottom: 8px;
+    }
+
+    /* ── CONTACT ── */
+    .contact-intro {
+      font-size: 18px;
+      color: var(--black);
+      margin-bottom: 28px;
+    }
+    .contact-email {
+      font-size: 20px;
+      border-top: 1px solid var(--rule);
+      padding-top: 24px;
+    }
+    .contact-email a {
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ── LINKS ── */
+    .links-list { list-style: none; }
+    .links-list li {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+      border-top: 1px solid var(--rule);
+      padding: 16px 0;
+      font-size: 18px;
+    }
+    .link-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--light);
+      padding-top: 3px;
+    }
+    .links-list a {
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px var(--pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    /* ── LANG VISIBILITY ── */
+    .en, .ja { display: block; }
+    body.lang-ja .en { display: none; }
+    body.lang-en .ja { display: none; }
+    span.en, span.ja { display: inline; }
+    body.lang-ja span.en { display: none; }
+    body.lang-en span.ja { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      :root { --pad: 32px; }
+      .hero { grid-template-columns: 1fr 160px; gap: 40px; }
+      .hero-photo { width: 160px; }
+      .hero-name { font-size: 2.6rem; }
+      .strengths-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --pad: 20px; }
+      nav { border-top-width: 1px; }
+      nav ul { gap: 16px; }
+      nav ul li a { font-size: 10px; padding: 12px 0; }
+      .lang-toggle { top: 13px; right: var(--pad); gap: 14px; }
+      .lang-toggle button { font-size: 10px; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 52px var(--pad) 48px;
+        gap: 24px;
+      }
+      .hero-photo { width: 120px; }
+      .hero-name { font-size: 2rem; }
+      .hero-name-ja { font-size: 1.2rem; }
+      .section-inner { padding: 40px var(--pad); }
+      h2 { margin-bottom: 32px; }
+      .research-cards { grid-template-columns: 1fr; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      .interests-list li { grid-template-columns: 28px 1fr; gap: 16px; }
+      .pub-list li { grid-template-columns: 56px 1fr; gap: 14px; }
+      .achievement-list li { grid-template-columns: 56px 1fr; gap: 14px; }
+      .award-list li { grid-template-columns: 56px 1fr; gap: 14px; }
+      .links-list li { grid-template-columns: 1fr; gap: 4px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+      .teaching-table thead { display: none; }
+      .teaching-table, .teaching-table tbody,
+      .teaching-table tr, .teaching-table td {
+        display: block; width: 100%;
+      }
+      .teaching-table tr {
+        border-top: 1px solid var(--rule);
+        padding: 14px 0;
+      }
+      .teaching-table td { border: none; padding: 2px 0; font-size: 14px; }
+    }
+
+    @media (max-width: 360px) {
+      .hero-name { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body class="lang-en">
+
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button data-lang="en" onclick="setLang('en')">EN</button>
+  <button data-lang="ja" onclick="setLang('ja')">日本語</button>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <ul>
+    <li><a href="#profile"><span class="en">Profile</span><span class="ja">プロフィール</span></a></li>
+    <li><a href="#research"><span class="en">Research</span><span class="ja">研究</span></a></li>
+    <li><a href="#interests"><span class="en">Interests</span><span class="ja">関心テーマ</span></a></li>
+    <li><a href="#publications"><span class="en">Publications</span><span class="ja">業績</span></a></li>
+    <li><a href="#achievements"><span class="en">Achievements</span><span class="ja">主な実績</span></a></li>
+    <li><a href="#teaching"><span class="en">Teaching</span><span class="ja">教育</span></a></li>
+    <li><a href="#awards"><span class="en">Awards</span><span class="ja">受賞</span></a></li>
+    <li><a href="#links"><span class="en">Links</span><span class="ja">リンク</span></a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-text">
+    <h1 class="hero-name">
+      <span class="en">Kohei Nishiyama</span>
+      <span class="ja">西山浩平</span>
+    </h1>
+    <div class="hero-row">
+      <div class="hero-label"><span class="en">Affiliation</span><span class="ja">所属</span></div>
+      <div class="hero-value">
+        <span class="en">The University of Tokyo · Project Researcher<br>Elephant Design Holdings · CEO<br>Tama Art University · Visiting Professor</span>
+        <span class="ja">東京大学 · 特任研究員<br>エレファントデザインホールディングス · 代表取締役CEO<br>多摩美術大学 · 客員教授</span>
+      </div>
+    </div>
+    <div class="hero-label" style="margin-top:28px; margin-bottom:8px;"><span class="en">Profile</span><span class="ja">略歴</span></div>
+    <ul class="bio-list en">
+      <li><span class="bio-year">1994</span>B.A. (Liberal Arts), University of Tokyo; Kuwasawa Design School (Product Design)</li>
+      <li><span class="bio-year">1994–97</span>McKinsey &amp; Company (Japan)</li>
+      <li><span class="bio-year">1997</span>Founded ELEPHANT DESIGN HOLDINGS Co., Ltd.</li>
+      <li><span class="bio-year">2017</span>Doctor (Engineering), University of Tokyo</li>
+      <li><span class="bio-year">2022–</span>Project Researcher, Dept. of Technology Management for Innovation (TMI), Graduate School of Engineering, University of Tokyo</li>
+    </ul>
+    <ul class="bio-list ja">
+      <li><span class="bio-year">1994</span>東京大学 教養学部 卒業（表象文化論）；桑沢デザイン研究所 プロダクトデザインコース 卒業</li>
+      <li><span class="bio-year">1994–97</span>マッキンゼー・アンド・カンパニー（日本）</li>
+      <li><span class="bio-year">1997</span>ELEPHANT DESIGN HOLDINGS株式会社 創業</li>
+      <li><span class="bio-year">2017</span>博士（工学）取得、東京大学大学院 工学系研究科</li>
+      <li><span class="bio-year">2022–</span>特任研究員、東京大学大学院 工学系研究科 技術経営戦略学専攻（TMI）</li>
+    </ul>
+    <div class="hero-label" style="margin-top:28px; margin-bottom:4px;"><span class="en">Contact</span><span class="ja">連絡先</span></div>
+    <p style="font-size:17px; color:var(--black); line-height:1.8; margin-bottom:8px;">
+      <span class="en">I welcome inquiries about research collaboration, speaking, and academic exchange.</span>
+      <span class="ja">研究協力・講演・学術交流に関するお問い合わせを歓迎します。</span>
+    </p>
+    <div class="hero-email">
+      k.nishiyama [at] css.t.u-tokyo.ac.jp
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="profile_2023.jpg" alt="Kohei Nishiyama">
+  </div>
+</div>
+
+<!-- Profile -->
+<section id="profile">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Research Focus</span>
+      <span class="ja">研究紹介</span>
+    </h2>
+    <div class="profile-body">
+      <p class="ja">
+        企業の報酬制度の設計がパフォーマンスを左右し、オンラインサービスにおける情報開示のあり方が購買行動を変える。人と人の間に介在するルールや構造こそが、関係や行動を規定している。デザインの対象を「モノをつくること」にとどまらず、人々の参加・協働・意味形成が生まれる条件へと広げることで、ユーザーが潜在的に果たしうる役割を研究の対象としています。
+      </p>
+      <p class="ja">
+        近年はAIエージェントが参加主体として加わることで、人間間の相互作用を前提に設計されてきた制度やルールの根本的な前提が変わりうる点に注目しています。AIが社会参加した状態においても安定的に機能する制度設計のあり方を問い続けています。
+      </p>
+      <p class="ja">
+        理論的基盤としてメカニズムデザイン理論・Co-creation理論・ユーザーイノベーション理論を用い、方法論としてParticipatory Design・Rapid Prototypingを援用しながら社会実装の可能性を高めます。さらにEffectuationやLean Startupの知見を取り入れ、研究成果を論文・特許・事業化へと繋げることを目指しています。
+      </p>
+      <p class="ja">
+        ステークホルダーの行動を観察し、数理モデルを通じて相互作用を説明可能にした上で、望ましい帰結をもたらすルール・情報設計・インセンティブ構造を設計し、現場で検証・改善していきます。対象はオンライン・プラットフォーム（価値共創と参加持続）とエネルギー・ネットワーク（協力の設計と利得配分）の両領域です。AIエージェントを含む多様な主体が参加する社会においても、協働が「続く形」で望ましい結果をもたらすルールとサービスをデザインできる理論体系の構築を目指し、理論と現場を行き来しながら研究しています。
+      </p>
+      <p class="en">
+        The structure of a reward system determines organizational performance; how information is disclosed in an online service shapes purchasing behavior. The rules and structures that lie between people are what regulate relationships and behavior. By extending the scope of design beyond artifact-making to encompass the conditions under which people participate, collaborate, and create meaning, this research pursues the latent roles that users can play as a central subject of inquiry.
+      </p>
+      <p class="en">
+        Recent work focuses on a fundamental challenge: as AI agents enter as active participants, the assumptions embedded in institutions and rules designed for human interaction are subject to revision. The central question is how to design systems that remain stable and function well as AI becomes a social actor.
+      </p>
+      <p class="en">
+        The theoretical foundation draws on mechanism design theory, Co-creation theory, and User Innovation theory, while Participatory Design and Rapid Prototyping inform the methodological approach. Insights from Effectuation and Lean Startup provide a path from research findings toward papers, patents, and business implementation.
+      </p>
+      <p class="en">
+        In practice, stakeholder behavior is observed and made explicable through mathematical modeling; rules, information structures, and incentive systems that lead to desirable outcomes are then designed and refined through field deployment. The domains span online platforms — value co-creation and sustained participation — and energy networks — the design of cooperation and allocation of gains. The overarching aim is to build a theoretical framework for designing rules and services through which collaboration — including AI agents — continues to generate desirable outcomes, moving continuously between theory and the field.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Current Research -->
+<section id="research">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Current Research</span>
+      <span class="ja">現在の研究</span>
+    </h2>
+    <div class="research-cards">
+      <div class="research-card">
+        <h3>
+          <span class="en">Online Networks: User–Firm Interactions</span>
+          <span class="ja">オンラインネットワーク：企業とユーザーの相互作用</span>
+        </h3>
+        <p>
+          <span class="en">Investigating how users and firms co-create value through online platforms. Drawing on longitudinal data from LEGO CUUSOO / LEGO IDEAS, this research models user participation behavior in open innovation contexts.</span>
+          <span class="ja">オンラインプラットフォームを通じたユーザーと企業の価値共創プロセスを研究しています。LEGO CUUSOO / LEGO IDEASの継続データを活用し、オープンイノベーションにおけるユーザー参加の行動をモデル化しています。</span>
+        </p>
+      </div>
+      <div class="research-card">
+        <h3>
+          <span class="en">Power Networks: Interactions Among Consumers</span>
+          <span class="ja">電力ネットワーク：需要家間の相互作用</span>
+        </h3>
+        <p>
+          <span class="en">Analyzing strategic interactions among consumers connected to electricity networks, with a focus on cooperation between data centers and heat consumers. Applying cooperative game theory to model value allocation in distributed energy systems.</span>
+          <span class="ja">電力ネットワークに接続した需要家間の相互作用を分析しています。特にデータセンターと熱需要家の協力関係に着目し、協力ゲーム理論を用いた分散型エネルギーシステムにおける価値配分モデルを構築しています。</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Research Approach -->
+    <p class="sub-label" style="margin-top:56px;">
+      <span class="en">Research Approach</span>
+      <span class="ja">研究のアプローチ</span>
+    </p>
+    <div class="strengths-grid">
+      <div class="strength-item">
+        <h3>
+          <span class="en">Observe, Model, Test</span>
+          <span class="ja">観察・モデル化・検証</span>
+        </h3>
+        <p>
+          <span class="en">Stakeholder behavior is observed and translated into formal problems — interaction rules, information structures, and incentive designs — then tested and refined through field deployment.</span>
+          <span class="ja">行動観察から出発し、相互作用のインセンティブ構造・情報設計・ルールとして問題を形式化・モデル化します。現場実装による検証と改善のサイクルを通じて、理論の精緻化を図ります。</span>
+        </p>
+      </div>
+      <div class="strength-item">
+        <h3>
+          <span class="en">Design as Institution</span>
+          <span class="ja">制度設計としてのデザイン</span>
+        </h3>
+        <p>
+          <span class="en">Design is not artifact-making but the configuration of social conditions — linking mechanism design with Participatory Design to shape how people participate and cooperate.</span>
+          <span class="ja">デザインをモノの制作としてだけではなく、人々の参加や協働が生まれる条件の構成として捉え、経済学のメカニズムデザインにデザインの手法を組み合わせて取り組みます。</span>
+        </p>
+      </div>
+      <div class="strength-item">
+        <h3>
+          <span class="en">Theory and Practice in Dialogue</span>
+          <span class="ja">理論と実践の往還</span>
+        </h3>
+        <p>
+          <span class="en">Keeping models grounded in reality — close to the practitioner's perspective — is our core discipline. Ongoing dialogue with managers connects research to present-day challenges and real-world implementation.</span>
+          <span class="ja">実務の視点に寄り添い、モデルを現実に接続し続けることを研究の規律としています。過去の事例にとどまらず、現在進行形の社会的課題にも向き合うため、実際の経営者との対話を重ね、社会実装に資する研究を目指します。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Research Interests -->
+<section id="interests">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Research Interests</span>
+      <span class="ja">関心のあるトピック</span>
+    </h2>
+    <ul class="interests-list">
+      <li>
+        <div class="interest-number">01</div>
+        <div class="interest-text">
+          <h3>
+            <span class="en">User-Driven Innovation</span>
+            <span class="ja">ユーザー自身によるイノベーション</span>
+          </h3>
+          <p>
+            <span class="en">A growing body of research demonstrates that a substantial share of innovation originates from users themselves, independently of firms and universities (von Hippel 1988, 2005). How can we characterize, measure, and design institutional conditions that enable this distributed innovative activity?</span>
+            <span class="ja">多くの先行研究が示すように、イノベーションの相当部分はユーザー自身によって生み出されており、企業や大学とは独立して発生しています（von Hippel 1988, 2005）。こうした分散したイノベーション活動を特徴づけ、計測し、それを可能にする制度条件をいかに設計するかを探求しています。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="interest-number">02</div>
+        <div class="interest-text">
+          <h3>
+            <span class="en">Institutional &amp; Mechanism Design</span>
+            <span class="ja">制度とメカニズムのデザイン</span>
+          </h3>
+          <p>
+            <span class="en">The rules that govern behavior on platforms extend beyond statutory law to include platform governance rules — terms of service, participation constraints, and reward structures — as well as emergent social norms among users. How these platform-level institutions can be designed to produce socially desirable outcomes is a central theme.</span>
+            <span class="ja">プラットフォーム上の行動を規定するルールは、法制度にとどまらず、利用規約・参加条件・報酬構造などのプラットフォーム・ガバナンスルール、さらにユーザー間に自生する社会規範にまで及びます。こうしたプラットフォーム水準の制度を社会的に望ましい結果に向けていかに設計するかが主要テーマです。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="interest-number">03</div>
+        <div class="interest-text">
+          <h3>
+            <span class="en">From Theory to Social Implementation</span>
+            <span class="ja">理論から社会実装へ</span>
+          </h3>
+          <p>
+            <span class="en">Using multi-actor mathematical models grounded in game theory, we can simulate user behavior under conditions not directly observable in the real world. Comparing theoretical predictions against observed outcomes reveals where institutional interventions are most effective. Through this approach, formal theory is transformed into a practical tool for social implementation, connecting mechanism design to real-world policy and platform governance.</span>
+            <span class="ja">ゲーム理論をもとにした複数アクターが参加する数理モデルを用いることで、実社会では直接観測できない条件下でのユーザー行動をシミュレーションすることができます。理論値と観測値の乖離を比較分析することで、どこに制度的介入が最も有効かが明らかになります。このアプローチにより、理論を社会実装のための実践的ツールへと転換し、メカニズムデザインを現実の政策やプラットフォーム・ガバナンスへと繋げます。</span>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Publications -->
+<section id="publications">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Selected Publications</span>
+      <span class="ja">主要論文・著書</span>
+    </h2>
+
+    <p class="sub-label">
+      <span class="en">Journal Articles</span><span class="ja">査読論文</span>
+    </p>
+    <ul class="pub-list">
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2024</span>
+          <span class="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="pub-content">
+          Ryuichiro Ishikawa, Hideyasu Karasawa, Sangjic Lee, Hajime Mizuyama, Nariaki Nishino, <strong>Kohei Nishiyama</strong>, Shigeru Ono, Shota Suginouchi, "Mechanism Design as Collaborative Production Systems." <em>IFIP Advances in Information and Communication Technology</em>, Vol. 730, pp. 394–407.
+        </div>
+      </li>
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2023</span>
+          <span class="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="pub-content">
+          Nariaki Nishino, Yusuke Fukasawa, <strong>Kohei Nishiyama</strong> et al., "Proposal of Function-Value Matching Method with Extended Top Trading Cycles (TTC) Algorithm for Upstream Design Support." <em>Transactions of the JSME</em>, Vol. 89, No. 928.
+        </div>
+      </li>
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2023</span>
+          <span class="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="pub-content">
+          Sangjic Lee, <strong>Kohei Nishiyama</strong>, Nariaki Nishino, "Game Theoretic Modeling of User Innovation and Venture M&amp;A Processes." <em>The Human Side of Service Engineering</em>, Vol. 108, pp. 393–399.
+        </div>
+      </li>
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2021</span>
+          <span class="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="pub-content">
+          Sangjic Lee, <strong>Kohei Nishiyama</strong>, Koji Kimita, Nariaki Nishino, "Co-Creation and Personalization as Incentive Mechanisms of Utilizing External Innovation Sources." <em>Asian Journal of Innovation and Policy</em>, Vol. 10, No. 3, pp. 274–293.
+        </div>
+      </li>
+    </ul>
+
+    <p class="sub-label">
+      <span class="en">Book Chapters</span><span class="ja">書籍所収論文</span>
+    </p>
+    <ul class="pub-list">
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2009</span>
+        </div>
+        <div class="pub-content">
+          <strong>Kohei Nishiyama</strong>, Susumu Ogawa, "Quantifying the User Innovation in Consumer Goods: Case Study of CUUSOO.com Japan." In <em>Customer-Oriented New Product Development</em>, GABLER, pp. 531–554.
+        </div>
+      </li>
+    </ul>
+
+    <p class="sub-label">
+      <span class="en">Invited Articles</span><span class="ja">招待論文</span>
+    </p>
+    <ul class="pub-list">
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2016</span>
+        </div>
+        <div class="pub-content">
+          <strong>Kohei Nishiyama</strong>, Yoshinori Fujikawa, "Designing the Social Acceptance of Service Innovation." <em>Quarterly Journal of Marketing</em>, Vol. 35, No. 3, pp. 45–62. (Invited, non-peer-reviewed)
+        </div>
+      </li>
+    </ul>
+
+    <p class="sub-label">
+      <span class="en">Books</span><span class="ja">著書</span>
+    </p>
+    <ul class="pub-list">
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2023</span>
+        </div>
+        <div class="pub-content">
+          <strong>Kohei Nishiyama</strong>. <em>Online Platform Management: Designing the Mechanism that Motivates User Participation.</em> Hakuto Shobo Publishing. (Single Author)
+          <br><span class="ja" style="font-size:0.88em; color:var(--light);">西山浩平『オンラインプラットフォームの経営：ユーザー参加を促すメカニズムのデザイン』白桃書房、2023年</span>
+        </div>
+      </li>
+    </ul>
+
+    <p class="sub-label">
+      <span class="en">Grants</span><span class="ja">研究資金</span>
+    </p>
+    <ul class="pub-list">
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2023–2026</span>
+        </div>
+        <div class="pub-content">
+          <span class="en">Research and Development of Interverse Technologies for Enhanced Communication. Cross-ministerial Strategic Innovation Promotion Program (SIP). Sub-investigator.</span>
+          <span class="ja">インターバース技術の研究開発（SIP）。分担研究者。</span>
+        </div>
+      </li>
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2022–2025</span>
+        </div>
+        <div class="pub-content">
+          <span class="en">Construction and Utilization of Field Experiment Platform for Mechanism Design Practice. KAKENHI Grant-in-Aid for Scientific Research (B), JSPS. Sub-investigator.</span>
+          <span class="ja">メカニズムデザイン実践のためのフィールド実験プラットフォームの構築と活用（科研費・基盤研究B）。分担研究者。</span>
+        </div>
+      </li>
+      <li>
+        <div class="pub-meta">
+          <span class="pub-year">2023–2024</span>
+        </div>
+        <div class="pub-content">
+          <span class="en">Design of Optimal Matching Mechanisms for Distributed Power Sources and Electricity Consumers. Tokyo Electric Power Grid Co., Ltd. (TEPCO Power Grid).</span>
+          <span class="ja">分散型電源と需要家間の最適マッチングを実現するメカニズムの設計。東京電力パワーグリッド株式会社。</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Selected Achievements -->
+<section id="achievements">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Selected Achievements</span>
+      <span class="ja">主な実績</span>
+    </h2>
+    <ul class="achievement-list">
+      <li>
+        <div class="ach-year">2000</div>
+        <div class="ach-body">
+          <h3>
+            <span class="en">Early Patent on User-Driven Demand Aggregation for Product Commercialization</span>
+            <span class="ja">ユーザー主導型需要集約・商品化システムの特許取得</span>
+          </h3>
+          <p>
+            <span class="en">Japanese Patent No. 4361235; US Patent No. 7,467,114 B1 (2008). Filed in 2000 — prior to the mainstream adoption of crowdfunding — this patent covers a system for collecting user-generated product proposals and aggregating demand data to support commercialization decisions.</span>
+            <span class="ja">特許第4361235号、米国特許第7,467,114 B1（2008年）。クラウドファンディングが普及する以前の2000年に出願。ユーザーが生成した製品提案を収集し、需要データを集約して商品化判断を支援するシステムを特許化しました。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="ach-year">2007–2014</div>
+        <div class="ach-body">
+          <h3>
+            <span class="en">LEGO CUUSOO → LEGO IDEAS</span>
+            <span class="ja">LEGO CUUSOO → LEGO IDEAS</span>
+          </h3>
+          <p>
+            <span class="en">Developed and operated an open innovation platform in collaboration with the LEGO Group, enabling users to propose and vote on product ideas. The platform reached 530,000 registered users globally before the business was transferred to LEGO, which relaunched it as LEGO IDEAS — an empirically documented case of user co-creation in the open innovation literature.</span>
+            <span class="ja">LEGOグループと連携してオープンイノベーションプラットフォームを開発・運営。世界53万人の登録ユーザーを獲得後、LEGOへ事業譲渡。LEGO IDEASとして継続運営されており、オープンイノベーション研究において実証的に記録されたユーザー共創の事例です。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="ach-year">2001–2008</div>
+        <div class="ach-body">
+          <h3>
+            <span class="en">CUUSOO MUJI &amp; the MUJI Sofa That Fits Your Body</span>
+            <span class="ja">CUUSOO MUJI・「体にフィットするソファ」の商品化</span>
+          </h3>
+          <p>
+            <span class="en">Designed and operated an online crowdfunding platform for MUJI (Ryohin Keikaku). When a user-submitted idea accumulated 1,000 votes, MUJI officially commercialized it. The long-selling "MUJI Sofa That Fits Your Body," designed by Fumie Shibata, was among the products realized through this mechanism.</span>
+            <span class="ja">無印良品（良品計画）向けのオンラインクラウドファンディングプラットフォームを設計・運営。ユーザーが投票で1,000票を集めると商品化される仕組みを実装。デザイナー・柴田文江氏によるロングセラー「体にフィットするソファ」はこの仕組みで生まれました。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="ach-year">2012</div>
+        <div class="ach-body">
+          <h3>
+            <span class="en">LEGO Minecraft: Record-Breaking Crowdsourced Product</span>
+            <span class="ja">LEGO Minecraft：記録的なクラウドソーシング商品</span>
+          </h3>
+          <p>
+            <span class="en">Provided the platform mechanisms for LEGO CUUSOO through which the LEGO Minecraft set reached 10,000 user votes in under 48 hours — a record at the time for any user-generated idea on the platform. The set was subsequently commercialized as an official LEGO product.</span>
+            <span class="ja">LEGO CUUSOO上のプラットフォームメカニズムを通じ、LEGO Minecraftセットが48時間以内に1万票を達成。当時のユーザー生成アイデアとして史上最速の記録でした。その後、公式LEGO製品として商品化されました。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="ach-year">2011–2012</div>
+        <div class="ach-body">
+          <h3>
+            <span class="en">Teiden-Kensaku: Demand Response Platform for 800,000 Users</span>
+            <span class="ja">停電検索：80万ユーザーの需要応答コミュニティ</span>
+          </h3>
+          <p>
+            <span class="en">Developed a demand response platform to facilitate electricity load reduction in Greater Tokyo following supply constraints after the 2011 Tōhoku earthquake. The system monitored real-time supply–demand gaps and delivered load-reduction notifications to 800,000 registered users. Subsequently recognized by the Japanese government as a designated platform for demand-shift coordination.</span>
+            <span class="ja">2011年東日本大震災後の電力需給逼迫に対応し、首都圏における電力需要削減を支援する需要応答プラットフォームを開発。リアルタイムの需給ギャップを監視し、登録ユーザー80万人に節電通知を配信。その後、日本政府の需要シフト調整の指定プラットフォームとして認定されました。</span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="ach-year">2014–2021</div>
+        <div class="ach-body">
+          <h3>
+            <span class="en">Sendle: Co-founded</span>
+            <span class="ja">Sendle：共同創業</span>
+          </h3>
+          <p>
+            <span class="en">Co-founded a parcel delivery service operating in Australia and the United States, aggregating distributed delivery capacity to reduce logistics costs for small businesses. Served as Co-founder and Board Member until 2021.</span>
+            <span class="ja">オーストラリア・米国で小口配送サービスを共同創業。分散した配送キャパシティを集約し、中小事業者の物流コスト削減を実現。2021年まで共同創業者・取締役を務めました。</span>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Teaching -->
+<section id="teaching">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Invited Lectures (For Credit)</span>
+      <span class="ja">招待講義</span>
+    </h2>
+    <table class="teaching-table">
+      <thead>
+        <tr>
+          <th><span class="en">Period</span><span class="ja">期間</span></th>
+          <th><span class="en">Institution</span><span class="ja">機関</span></th>
+          <th><span class="en">Course / Topic</span><span class="ja">科目・テーマ</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="year-col">2020–2025</td>
+          <td>Yale University, School of Management</td>
+          <td>
+            <span class="en">Why Customers Work with Corporations on Platforms</span>
+            <span class="ja">なぜ顧客はプラットフォームで企業と協働するのか</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="year-col">2019, 2024</td>
+          <td>Seoul National University, Business School</td>
+          <td>
+            <span class="en">Platform Management &amp; Service Marketing (MBA)</span>
+            <span class="ja">プラットフォーム経営・サービスマーケティング（MBA）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="year-col">2018–2025</td>
+          <td>Hitotsubashi University Business School (ICS)</td>
+          <td>
+            <span class="en">Aggregating Distributed Values – Managing Customer-Created Value (MBA)</span>
+            <span class="ja">分散価値の集約：顧客創造価値の経営（MBA）</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="year-col">2019</td>
+          <td>
+            <span class="en">The University of Tokyo, College of Arts and Sciences</span>
+            <span class="ja">東京大学 教養学部</span>
+          </td>
+          <td>
+            <span class="en">Mechanism Design for Online Services</span>
+            <span class="ja">オンラインサービスのメカニズムデザイン</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="year-col">2012–</td>
+          <td>
+            <span class="en">Tama Art University (Visiting Professor)</span>
+            <span class="ja">多摩美術大学（客員教授）</span>
+          </td>
+          <td>
+            <span class="en">User Research and Latent Needs Analysis in Business Planning (Dept. of Information Design)</span>
+            <span class="ja">ユーザーリサーチと潜在ニーズ分析（情報デザイン学科）</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Awards & Recognition -->
+<section id="awards">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Awards &amp; Recognition</span>
+      <span class="ja">受賞・表彰</span>
+    </h2>
+    <ul class="award-list">
+      <li>
+        <div class="award-year">2009</div>
+        <div>
+          <span class="en">Named one of <em>The 100 Most Creative People in Business</em>, Fast Company, USA</span>
+          <span class="ja">Fast Company誌「ビジネス界で最もクリエイティブな100人」に選出（米国）</span>
+        </div>
+      </li>
+      <li>
+        <div class="award-year">2007–2013</div>
+        <div>
+          <span class="en">Young Global Leaders, World Economic Forum (WEF)</span>
+          <span class="ja">世界経済フォーラム（WEF）Young Global Leaders</span>
+        </div>
+      </li>
+      <li>
+        <div class="award-year">2010</div>
+        <div>
+          <span class="en">Fellow, Royal Society for the Encouragement of Arts, Manufactures and Commerce (RSA), London</span>
+          <span class="ja">英国王立芸術協会（RSA）フェロー</span>
+        </div>
+      </li>
+      <li>
+        <div class="award-year">2006</div>
+        <div>
+          <span class="en">Good Design Award, New Frontier Design Section (TEPCO Switch! the design project)</span>
+          <span class="ja">グッドデザイン賞 新領域デザイン部門（TEPCO Switch!ザ・デザインプロジェクト）</span>
+        </div>
+      </li>
+      <li>
+        <div class="award-year">2000</div>
+        <div>
+          <span class="en">Entrepreneur Prize, National Start-up and Venture Business Award, METI, Japan</span>
+          <span class="ja">新規・成長企業大賞 起業家賞（経済産業省）</span>
+        </div>
+      </li>
+      <li>
+        <div class="award-year">2000</div>
+        <div>
+          <span class="en">Good Design Award, New Frontier Design Section (CUUSOO.com)</span>
+          <span class="ja">グッドデザイン賞 新領域デザイン部門（CUUSOO.com）</span>
+        </div>
+      </li>
+    </ul>
+
+    <p class="other-recog-label">
+      <span class="en">Other Recognitions</span>
+      <span class="ja">その他の表彰・役職</span>
+    </p>
+    <div class="tags">
+      <span class="tag">WEF Design Council 2008–2011</span>
+      <span class="tag">WEF Entrepreneurship Council 2018</span>
+      <span class="tag">Good Design Fellow (JDP) 2015</span>
+      <span class="tag">Asia 21 Class of 2012</span>
+      <span class="tag">RSA Fellow 2010</span>
+      <span class="tag">World Design Capital Committee 2010–2011</span>
+    </div>
+  </div>
+</section>
+
+<!-- Links -->
+<section id="links">
+  <div class="section-inner">
+    <h2>
+      <span class="en">Links</span>
+      <span class="ja">リンク</span>
+    </h2>
+    <ul class="links-list">
+      <li>
+        <span class="link-label">Lab</span>
+        <a href="https://www.css.t.u-tokyo.ac.jp/" target="_blank" rel="noopener">
+          <span class="en">The University of Tokyo, TMI · Nishino Laboratory</span>
+          <span class="ja">東京大学 TMI・西野研究室</span>
+        </a>
+      </li>
+      <li>
+        <span class="link-label">Profile</span>
+        <a href="https://researchmap.jp/KoheiNishiyama" target="_blank" rel="noopener">
+          researchmap
+        </a>
+      </li>
+      <li>
+        <span class="link-label">Practice</span>
+        <a href="https://elephantdesignholdings.com/" target="_blank" rel="noopener">
+          <span class="en">ELEPHANT DESIGN HOLDINGS</span>
+          <span class="ja">エレファントデザインホールディングス</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span>© 2025 Kohei Nishiyama</span>
+  <span>
+    <span class="en">Photo: © Keiko Chiba / Nacasa &amp; Partners Inc.</span>
+    <span class="ja">写真：© 千葉恵子 / Nacasa &amp; Partners Inc.</span>
+  </span>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  }
+  setLang('en');
+
+  // Smooth scroll for nav links within iframe
+  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById(this.getAttribute('href').slice(1));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>

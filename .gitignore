@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Office temp files
+~$*
+
+# PDFs / Word / Excel (not tracked)
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+
+# Other HTMLs not published
+index.html
+profile.jpg
