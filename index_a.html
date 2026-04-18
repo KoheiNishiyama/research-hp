@@ -1199,20 +1199,29 @@
     <ul class="links-list">
       <li>
         <span class="link-label">Lab</span>
-        <a href="https://www.css.t.u-tokyo.ac.jp/" target="_blank" rel="noopener">
+        <a href="https://www.css.t.u-tokyo.ac.jp/home-en"
+           data-href-en="https://www.css.t.u-tokyo.ac.jp/home-en"
+           data-href-ja="https://www.css.t.u-tokyo.ac.jp/"
+           target="_blank" rel="noopener">
           <span class="en">The University of Tokyo, TMI · Nishino Laboratory</span>
           <span class="ja">東京大学 TMI・西野研究室</span>
         </a>
       </li>
       <li>
         <span class="link-label">Profile</span>
-        <a href="https://researchmap.jp/KoheiNishiyama" target="_blank" rel="noopener">
+        <a href="https://researchmap.jp/KoheiNishiyama?lang=en"
+           data-href-en="https://researchmap.jp/KoheiNishiyama?lang=en"
+           data-href-ja="https://researchmap.jp/KoheiNishiyama"
+           target="_blank" rel="noopener">
           researchmap
         </a>
       </li>
       <li>
         <span class="link-label">Practice</span>
-        <a href="https://elephantdesignholdings.com/" target="_blank" rel="noopener">
+        <a href="https://elephantdesignholdings.com/en/"
+           data-href-en="https://elephantdesignholdings.com/en/"
+           data-href-ja="https://elephantdesignholdings.com/jp"
+           target="_blank" rel="noopener">
           <span class="en">ELEPHANT DESIGN HOLDINGS</span>
           <span class="ja">エレファントデザインホールディングス</span>
         </a>
@@ -1235,6 +1244,9 @@
     document.body.className = 'lang-' + lang;
     document.querySelectorAll('.lang-toggle button').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.querySelectorAll('a[data-href-en]').forEach(a => {
+      a.href = lang === 'en' ? a.dataset.hrefEn : a.dataset.hrefJa;
     });
   }
   setLang('en');
