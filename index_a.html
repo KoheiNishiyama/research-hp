@@ -37,12 +37,11 @@
 
     /* ── LANG TOGGLE ── */
     .lang-toggle {
-      position: fixed;
-      top: 18px;
-      right: var(--pad);
-      z-index: 1000;
+      flex-shrink: 0;
       display: flex;
       gap: 18px;
+      padding: 0 var(--pad);
+      align-items: center;
     }
     .lang-toggle button {
       background: none;
@@ -65,14 +64,18 @@
     nav {
       position: sticky;
       top: 0;
-      z-index: 900;
+      z-index: 1000;
       background: var(--white);
       border-top: 2px solid var(--black);
       border-bottom: 1px solid var(--rule);
     }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+    }
     nav ul {
-      max-width: var(--max);
-      margin: 0 auto;
+      flex: 1;
+      min-width: 0;
       padding: 0;
       display: flex;
       gap: 20px;
@@ -81,7 +84,7 @@
     }
     nav ul::-webkit-scrollbar { display: none; }
     nav ul li:first-child { padding-left: var(--pad); }
-    nav ul li:last-child { padding-right: 140px; }
+    nav ul li:last-child { padding-right: var(--pad); }
     nav ul li a {
       display: block;
       padding: 14px 0;
@@ -528,9 +531,8 @@
       :root { --pad: 20px; }
       nav { border-top-width: 1px; }
       nav ul { gap: 16px; }
-      nav ul li:last-child { padding-right: 100px; }
       nav ul li a { font-size: 10px; padding: 12px 0; }
-      .lang-toggle { top: 13px; right: var(--pad); gap: 14px; }
+      .lang-toggle { gap: 14px; padding: 0 var(--pad); }
       .lang-toggle button { font-size: 10px; }
       .hero {
         grid-template-columns: 1fr;
@@ -570,24 +572,24 @@
 <body class="lang-en">
 
 
-<!-- Language Toggle -->
-<div class="lang-toggle">
-  <button data-lang="en" onclick="setLang('en')">EN</button>
-  <button data-lang="ja" onclick="setLang('ja')">日本語</button>
-</div>
-
 <!-- Navigation -->
 <nav>
-  <ul>
-    <li><a href="#profile"><span class="en">About</span><span class="ja">プロフィール</span></a></li>
-    <li><a href="#research"><span class="en">Current Research</span><span class="ja">現在の取り組み</span></a></li>
-    <li><a href="#interests"><span class="en">Interests</span><span class="ja">関心テーマ</span></a></li>
-    <li><a href="#publications"><span class="en">Publications</span><span class="ja">業績</span></a></li>
-    <li><a href="#achievements"><span class="en">Achievements</span><span class="ja">主な実績</span></a></li>
-    <li><a href="#teaching"><span class="en">Teaching</span><span class="ja">教育</span></a></li>
-    <li><a href="#awards"><span class="en">Awards</span><span class="ja">受賞</span></a></li>
-    <li><a href="#links"><span class="en">Links</span><span class="ja">リンク</span></a></li>
-  </ul>
+  <div class="nav-inner">
+    <ul>
+      <li><a href="#profile"><span class="en">About</span><span class="ja">プロフィール</span></a></li>
+      <li><a href="#research"><span class="en">Current Research</span><span class="ja">現在の取り組み</span></a></li>
+      <li><a href="#interests"><span class="en">Interests</span><span class="ja">関心テーマ</span></a></li>
+      <li><a href="#publications"><span class="en">Publications</span><span class="ja">業績</span></a></li>
+      <li><a href="#achievements"><span class="en">Achievements</span><span class="ja">主な実績</span></a></li>
+      <li><a href="#teaching"><span class="en">Teaching</span><span class="ja">教育</span></a></li>
+      <li><a href="#awards"><span class="en">Awards</span><span class="ja">受賞</span></a></li>
+      <li><a href="#links"><span class="en">Links</span><span class="ja">リンク</span></a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="ja" onclick="setLang('ja')">日本語</button>
+    </div>
+  </div>
 </nav>
 
 <!-- Hero -->
